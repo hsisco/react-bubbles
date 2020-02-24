@@ -26,7 +26,7 @@ const ColorList = ({ colors, updateColors }) => {
       .catch(err => console.log('saveEdit FAILED:', err))
   };
 
-  const deleteColor = e => {
+  const deleteColor = (e, color) => {
     e.preventDefault();
     axios
       .delete(`/colors/${color.id}`)
