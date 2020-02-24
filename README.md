@@ -30,7 +30,7 @@ Demonstrate your understanding of this Sprint's concepts by answering the follow
 - [ ] What steps can you take in your web apps to keep your data secure?
 - [ ] Describe how web servers work.
 - [ ] Which HTTP methods can be mapped to the CRUD acronym that we use when interfacing with APIs/Servers.
-
+<!-- SEE ANSWERS.md -->
 
 ## Project Set Up
 
