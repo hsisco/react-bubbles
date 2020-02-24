@@ -1,21 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
-class Login extends React.Component {
-  state = {
-    credentials: {
+const Login = () => {
+  const credentials = {
       username: '',
       password: ''
     }
-  };
 
-  login = e => {
+  const [state, setState] = useState(credentials)
+
+  const login = e => {
     e.preventDefault();
     axiosWithAuth()
-      .post("/login", this.state.credentials)
+      .post("/login", state)
       .then(res => {
         localStorage.setItem('token', res.data.payload);
-        this.props.history.push("/protected");
+        this.props.history.push("/bubblepage");
       })
       .catch(err => {
         localStorage.removeItem('token');
@@ -23,36 +23,30 @@ class Login extends React.Component {
       });
   };
 
-  handleChange = e => {
-    this.setState({
-      credentials: {
-        ...this.state.credentials,
-        [e.target.name]: e.target.value
-      }
-    });
+  const handleChange = e => {
+    setState({ ...state, [e.target.name]: e.target.value});
   };
 
-  render () {
-    return (
-      <div className="Login" >
-        <form onSubmit={this.login} >
-          <input 
-            type="text"
-            name="username"
-            value={this.state.credentials.username}
-            onChange={this.handleChange}
-          />
-          <input 
-            type="password"
-            name="password"
-            value={this.state.credentials.password}
-            onChange={this.handleChange}
-          />
-          <button>Log In</button>
-        </form>
-      </div>
-    )
-  }
+  return (
+    <div className="Login" >
+      <form onSubmit={login} >
+        <input 
+          type="text"
+          name="username"
+          value={state.username}
+          onChange={handleChange}
+        />
+        <input 
+          type="password"
+          name="password"
+          value={state.password}
+          onChange={handleChange}
+        />
+        <button>Log In</button>
+        <button onClick={() => localStorage.removeItem('token')}>Log Out</button>
+      </form>
+    </div>
+  )
 };
 
 export default Login;

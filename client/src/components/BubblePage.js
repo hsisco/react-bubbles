@@ -16,11 +16,11 @@ const BubblePage = () => {
         console.log('Colors state:', colorList);
       })
       .catch(err => console.log("getData FAILED:", err))
-  }, [colorList]);
+  }, []);
 
   return (
     <>
-      <ColorList colors={colorList} updateColors={setColorList} />
+      <ColorList colors={colorList} />
       <Bubbles colors={colorList} />
     </>
   );

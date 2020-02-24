@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import axios from "axios";
 import axiosWithAuth from '../utils/axiosWithAuth';
 
 const initialColor = {
@@ -7,7 +6,7 @@ const initialColor = {
   code: { hex: "" }
 };
 
-const ColorList = ({ colors, updateColors }) => {
+const ColorList = ({ colors }) => {
   console.log(colors);
   const [editing, setEditing] = useState(false);
   const [colorToEdit, setColorToEdit] = useState(initialColor);
@@ -19,19 +18,19 @@ const ColorList = ({ colors, updateColors }) => {
 
   const saveEdit = e => {
     e.preventDefault();
-    let filteredColors = colors.filter(color => color.id !== colorToEdit.id);
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
-      .then(updateColors([...filteredColors, colorToEdit]))
+      .then(res => {
+        setColorToEdit(initialColor)
+        console.log("Color saved:", res);
+      })
       .catch(err => console.log('saveEdit FAILED:', err))
   };
 
-  const deleteColor = (e, color) => {
-    e.preventDefault();
-    axios
+  const deleteColor = color => {
+    axiosWithAuth()
       .delete(`/colors/${color.id}`)
       .then(res => {
-        // history.push('/');
         console.log('Color deleted:', res)
       })
       .catch(err => console.log('deleteColor FAILED:', err))

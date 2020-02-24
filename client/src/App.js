@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import Login from "./components/Login";
 import PrivateRoute from './utils/PrivateRoute';
@@ -13,8 +13,10 @@ function App() {
         <header>
           <h1>Welcome to the Bubble App!</h1>
         </header>
-        <Route exact path="/" component={Login} />
-        <PrivateRoute path="/bubblepage" component={BubblePage} />
+        <Switch>
+          <PrivateRoute path="/bubblepage" component={BubblePage} />
+          <Route exact path="/" component={Login} />
+        </Switch>
       </div>
     </Router>
   );
