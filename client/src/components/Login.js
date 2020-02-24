@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axiosWithAuth from '../utils/axiosWithAuth';
 
-const Login = () => {
+const Login = props => {
   const credentials = {
       username: '',
       password: ''
@@ -9,13 +9,13 @@ const Login = () => {
 
   const [state, setState] = useState(credentials)
 
-  const login = e => {
+  const handleSubmit = e => {
     e.preventDefault();
     axiosWithAuth()
       .post("/login", state)
       .then(res => {
         localStorage.setItem('token', res.data.payload);
-        this.props.history.push("/bubblepage");
+        props.history.push("/bubblepage");
       })
       .catch(err => {
         localStorage.removeItem('token');
@@ -29,7 +29,7 @@ const Login = () => {
 
   return (
     <div className="Login" >
-      <form onSubmit={login} >
+      <form onSubmit={handleSubmit} >
         <input 
           type="text"
           name="username"
