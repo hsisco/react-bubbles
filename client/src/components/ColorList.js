@@ -26,9 +26,16 @@ const ColorList = ({ colors, updateColors }) => {
       .catch(err => console.log('saveEdit FAILED:', err))
   };
 
-  const deleteColor = color => {
-    // make a delete request to delete this color
-  };
+  const deleteColor = e => {
+    e.preventDefault();
+    axios
+      .delete(`/colors/${color.id}`)
+      .then(res => {
+        // history.push('/');
+        console.log('Color deleted:', res)
+      })
+      .catch(err => console.log('deleteColor FAILED:', err))
+  }
 
   return (
     <div className="colors-wrap">
