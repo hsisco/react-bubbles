@@ -22,7 +22,7 @@ const ColorList = ({ colors }) => {
     axiosWithAuth()
       .put(`/colors/${colorToEdit.id}`, colorToEdit)
       .then(res => {
-        setColorToEdit(initialColor)
+        // setColorToEdit(initialColor)
         console.log("Color saved:", res);
       })
       .catch(err => console.log('saveEdit FAILED:', err))
